@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Problems</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+    <h1>Practice Problems</h1>
+
+    <div class="card mt-3"
+         th:each="problem : ${problems}">
+
+        <div class="card-body">
+
+            <h4 th:text="${problem.title}"></h4>
+
+            <p th:text="${problem.description}"></p>
+
+            <span class="badge bg-success"
+                  th:text="${problem.difficulty}">
+            </span>
+
+            <br><br>
+
+            <strong>
+                Points:
+                <span th:text="${problem.points}"></span>
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
