@@ -1,5 +1,6 @@
 package com.JavaLearner.Hub.controller;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.JavaLearner.Hub.model.User;
 import com.JavaLearner.Hub.repository.UserRepository;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,13 @@ public class AuthController {
 
         userRepository.save(user);
 
-        return "redirect:/login";
+        return "redirect:/";
+    }
+    private final BCryptPasswordEncoder passwordEncoder;
+    public AuthController(UserRepository userRepository,
+                          BCryptPasswordEncoder passwordEncoder) {
+
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 }
