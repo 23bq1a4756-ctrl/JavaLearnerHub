@@ -1,8 +1,8 @@
 package com.JavaLearner.Hub.controller;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.JavaLearner.Hub.model.User;
 import com.JavaLearner.Hub.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +11,13 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public AuthController(UserRepository userRepository) {
+    public AuthController(UserRepository userRepository,
+                          BCryptPasswordEncoder passwordEncoder) {
+
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/register")
@@ -27,15 +31,17 @@ public class AuthController {
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user) {
 
+        user.setPassword(
+                passwordEncoder.encode(user.getPassword())
+        );
+
         userRepository.save(user);
 
-        return "redirect:/";
+        return "redirect:/login";
     }
-    private final BCryptPasswordEncoder passwordEncoder;
-    public AuthController(UserRepository userRepository,
-                          BCryptPasswordEncoder passwordEncoder) {
 
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
     }
 }
