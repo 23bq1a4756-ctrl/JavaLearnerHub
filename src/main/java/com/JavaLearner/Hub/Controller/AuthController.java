@@ -1,4 +1,5 @@
-package com.JavaLearner.Hub.controller;
+package com.JavaLearner.Hub.Controller;
+
 
 import com.JavaLearner.Hub.model.User;
 import com.JavaLearner.Hub.repository.UserRepository;
